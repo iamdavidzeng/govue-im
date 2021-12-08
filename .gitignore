@@ -114,3 +114,7 @@ node_modules
 package-lock.json
 dist
 .umi
+.DS_Store
+dist
+dist-ssr
+*.local
