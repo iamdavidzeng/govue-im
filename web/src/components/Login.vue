@@ -7,13 +7,18 @@
       class="input"
     />
     <button @click="initData(username)" class="btn">Login</button>
+    <DatePicker></DatePicker>
   </div>
 </template>
 
 <script>
+import { DatePicker } from "ant-design-vue";
 import { mapActions } from "vuex";
 export default {
   name: "Login",
+  components: {
+    DatePicker,
+  },
   data() {
     return {
       username: "",
@@ -27,16 +32,16 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  margin: 20px auto;
+  margin: 30% auto;
   padding: 10px;
   width: 300px;
   height: 100px;
   background-color: #fff;
   border-radius: 5px;
 }
-input {
+.container .input {
   padding: 12px 0;
-  margin-bottom: 10px;
+  margin: 10px;
   border-radius: 3px;
   border: 2px solid transparent;
   text-align: center;
@@ -45,7 +50,7 @@ input {
   transition: border 0.2s, background-color 0.2s;
   background-color: #ecf0f1;
 }
-.btn {
+.container .btn {
   background-color: #3498db;
   color: #fff;
   line-height: 25px;
