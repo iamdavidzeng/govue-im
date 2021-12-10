@@ -6,19 +6,14 @@
       placeholder="Username"
       class="input"
     />
-    <button @click="initData(username)" class="btn">Login</button>
-    <DatePicker></DatePicker>
+    <a-button @click="initData(username)">Login</a-button>
   </div>
 </template>
 
 <script>
-import { DatePicker } from "ant-design-vue";
 import { mapActions } from "vuex";
 export default {
   name: "Login",
-  components: {
-    DatePicker,
-  },
   data() {
     return {
       username: "",
