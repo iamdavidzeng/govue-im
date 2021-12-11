@@ -26,10 +26,7 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Card",
-  computed: mapState([
-    'user',
-    'filterKey',
-  ]),
+  computed: mapState(["user", "filterKey"]),
   methods: {
     ...mapActions(["search"]),
     onKeyup(e) {

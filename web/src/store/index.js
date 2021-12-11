@@ -1,32 +1,32 @@
-import { createStore } from "vuex";
-import axios from "axios";
+import { createStore } from 'vuex';
+import axios from 'axios';
 
 const state = {
   user: {
-    name: "",
-    img: "",
+    name: '',
+    img: '',
   },
   sessions: [],
   currentSessionId: 1,
-  filterKey: "",
+  filterKey: '',
   socket: null,
 };
 
 const mutations = {
   INIT_DATA(state, { username, onlineUsers }) {
-    if (typeof WebSocket === "undefined") {
-      console.log("WebSocket is not supported by your browser.");
+    if (typeof WebSocket === 'undefined') {
+      console.log('WebSocket is not supported by your browser.');
       return;
     } else {
-      console.log("WebSocket is supported by your browser.");
+      console.log('WebSocket is supported by your browser.');
 
-      document.cookie = "user=" + username;
-      state.socket = new WebSocket("ws://localhost:8080/ws");
+      document.cookie = 'user=' + username;
+      state.socket = new WebSocket('ws://localhost:8080/ws');
 
       state.socket.onopen = function () {
-        console.log("connected");
+        console.log('connected');
         // set user info and display online users.
-        state.user = { name: username, img: username + ".jpeg" };
+        state.user = { name: username, img: username + '.jpeg' };
         if (onlineUsers.length > 0) {
           onlineUsers.forEach((username) => {
             if (username != state.user.name) {
@@ -34,7 +34,7 @@ const mutations = {
                 id: state.sessions.length + 1,
                 user: {
                   name: username,
-                  img: username + ".jpeg",
+                  img: username + '.jpeg',
                 },
                 messages: [],
               });
@@ -54,18 +54,18 @@ const mutations = {
             id,
             user: {
               name: data.from,
-              img: data.from + ".jpeg",
+              img: data.from + '.jpeg',
             },
             messages: [],
           });
           session = state.sessions.find((s) => s.id === id);
         }
         // if sender leaves the chat, remove the session.
-        if (session && data.content.includes("left the group")) {
+        if (session && data.content.includes('left the group')) {
           state.sessions = state.sessions.filter((s) => s.id !== session.id);
         }
         // if sender sends a message, add the message to the session.
-        if (!data.content.includes("joined the group")) {
+        if (!data.content.includes('joined the group')) {
           session.messages.push({
             content: data.content,
             date: new Date(),
@@ -88,8 +88,8 @@ const mutations = {
           from: state.user.name,
           to: session.user.name,
           content: content,
-          channel_type: "user",
-        })
+          channel_type: 'user',
+        }),
       );
       session.messages.push({
         content: content,
@@ -113,20 +113,20 @@ const mutations = {
 
 const actions = {
   async initData({ commit }, username) {
-    const response = await axios.get("http://localhost:8080/api/users");
-    commit("INIT_DATA", { username, onlineUsers: response.data });
+    const response = await axios.get('http://localhost:8080/api/users');
+    commit('INIT_DATA', { username, onlineUsers: response.data });
   },
   sendMessage({ commit }, content) {
-    commit("SEND_MESSAGE", content);
+    commit('SEND_MESSAGE', content);
   },
   selectSession({ commit }, id) {
-    commit("SELECT_SESSION", id);
+    commit('SELECT_SESSION', id);
   },
   search({ commit }, key) {
-    commit("SELF_FILTER_KEY", key);
+    commit('SELF_FILTER_KEY', key);
   },
   closeSocket({ commit }) {
-    commit("CLOSE_SOCKET");
+    commit('CLOSE_SOCKET');
   },
 };
 
