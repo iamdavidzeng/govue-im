@@ -9,21 +9,22 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(["sendMessage"]),
+    ...mapActions(['sendMessage']),
     onKeyup(e) {
+      console.log(e);
       if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
         this.sendMessage(this.content);
-        this.content = "";
+        this.content = '';
       }
     },
   },
   data() {
     return {
-      content: "",
+      content: '',
     };
   },
 };
@@ -39,7 +40,7 @@ export default {
     width: 100%;
     border: none;
     outline: none;
-    font-family: "Micrsofot Yahei";
+    font-family: 'Micrsofot Yahei';
     resize: none;
   }
 }
