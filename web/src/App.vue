@@ -6,7 +6,7 @@ import List from "./components/List.vue";
 import Text from "./components/Text.vue";
 import Message from "./components/Message.vue";
 import Login from './components/Login.vue';
-import { mapActions, mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -15,9 +15,6 @@ export default {
     Text,
     Message,
     Login,
-  },
-  methods: {
-    ...mapActions(["initData", "closeSocket"]),
   },
   computed: {
     ...mapState(["user"]),

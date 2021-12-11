@@ -1,56 +1,39 @@
 <template>
-  <div class="container">
-    <input
-      type="text"
-      v-model="username"
-      placeholder="Username"
-      class="input"
-    />
-    <a-button @click="initData(username)">Login</a-button>
-  </div>
+  <el-main>
+    <el-form ref="form" :model="form" label-width="120px">
+      <el-form-item label="Username">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input v-model="form.password" type="password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">Submit</el-button>
+      </el-form-item>
+    </el-form>
+  </el-main>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 export default {
-  name: "Login",
   data() {
     return {
-      username: "",
+      form: {
+        name: "",
+        password: "",
+      },
     };
   },
   methods: {
     ...mapActions(["initData"]),
+    onSubmit() {
+      if (!this.form.name || !this.form.password) {
+        alert("Please input username and password");
+        return;
+      }
+      this.initData(this.form.name);
+    },
   },
 };
 </script>
-
-<style lang="less" scoped>
-.container {
-  margin: 30% auto;
-  padding: 10px;
-  width: 300px;
-  height: 100px;
-  background-color: #fff;
-  border-radius: 5px;
-}
-.container .input {
-  padding: 12px 0;
-  margin: 10px;
-  border-radius: 3px;
-  border: 2px solid transparent;
-  text-align: center;
-  width: 50%;
-  font-size: 16px;
-  transition: border 0.2s, background-color 0.2s;
-  background-color: #ecf0f1;
-}
-.container .btn {
-  background-color: #3498db;
-  color: #fff;
-  line-height: 25px;
-  cursor: pointer;
-  width: 50%;
-  text-align: center;
-}
-</style>
